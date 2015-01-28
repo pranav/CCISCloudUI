@@ -1,10 +1,13 @@
-CCISCloudUIApp = angular.module('CCISCloudUIApp', ['ngRoute', 'CCISCloudUIControllers'])
+CCISCloudUIApp = angular.module('CCISCloudUIApp', ['ngRoute', 'CCISCloudUIControllers', 'CCISCloudServices'])
 
 CCISCloudUIApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
   $locationProvider.html5Mode(true).hashPrefix('!')
   $routeProvider.when('/instances', {
     templateUrl: '/html/templates/instances.html',
     controller: 'InstancesCtrl'
+  }).when('/instance/:instanceId', {
+    templateUrl: '/html/templates/instance.html',
+    controller: 'InstanceCtrl'
   }).when('/condense', {
     templateUrl: '/html/templates/condense.html',
     controller: 'CondenseCtrl'
@@ -16,9 +19,12 @@ CCISCloudUIApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $
 CCISCloudUIControllers = angular.module('CCISCloudUIControllers', [])
 
 CCISCloudUIControllers.controller 'BaseCtrl', ['$scope', ($scope) ->
-  console.log 'basectrl'
 ]
 
-CCISCloudUIControllers.controller 'InstancesCtrl', ['$scope', ($scope) ->
-  console.log 'instancesctrl'
+CCISCloudUIControllers.controller 'InstancesCtrl', ['$scope', 'Instance', ($scope, Instance) ->
+  $scope.instances = Instance.query()
+]
+
+CCISCloudUIControllers.controller 'InstanceCtrl', ['$scope', '$routeParams','Instance', ($scope, $routeParams, Instance) ->
+  $scope.instance = Instance.get({instanceId: $routeParams.instanceId})
 ]

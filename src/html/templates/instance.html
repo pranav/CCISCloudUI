@@ -1,0 +1,84 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>{{ instance.tags.hostname }} <small>{{ instance.tags.description || "Enter a memorable description of this instance"}}</small></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 center-col text-center instance-actions-buttons">
+            <button class="btn btn-success">Start</button>
+            <button class="btn btn-danger">Stop</button>
+            <button class="btn btn-danger">Delete</button>
+            <button class="btn btn-warning">Reboot</button>
+            <button class="btn btn-primary">Clone</button>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Instance Information -->
+        <div class="col-md-4">
+            <div class="panel-default panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">Instance Information</h3>
+                </div>
+                <div class="panel-body instance-detail-list">
+                    <dl class="dl-horizontal">
+                        <dt>State:</dt>
+                        <dd>{{ instance.state }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Amazon DNS Name:</dt>
+                        <dd>{{ instance.dns_name }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>AMI (Image) ID:</dt>
+                        <dd>{{ instance.image_id }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Instance ID:</dt>
+                        <dd>{{ instance.instance_id }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Instance Type:</dt>
+                        <dd>{{ instance.instance_type }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Launch Time:</dt>
+                        <dd>{{ instance.launch_time }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Internal IP:</dt>
+                        <dd>{{ instance.private_ip_address }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Public IP:</dt>
+                        <dd>{{ instance.public_ip_address }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Virtualization Type:</dt>
+                        <dd>{{ instance.virtualization_type }}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>VPC ID:</dt>
+                        <dd>{{ instance.vpc_id }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <!-- Tag Information -->
+        <div class="col-md-4">
+            <div class="panel-default panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">Instance Tags</h3>
+                </div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal" ng-repeat="(key, val) in instance.tags">
+                        <dt>{{ key }}</dt>
+                        <dd>{{ val }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
