@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     coffee = require('gulp-coffee'),
     connect = require('gulp-connect'),
-    historyApiFallback = require('connect-history-api-fallback')
+    historyApiFallback = require('connect-history-api-fallback'),
+    webserver = require('gulp-webserver')
 
 
 gulp.task('styles', function() {
@@ -15,7 +16,7 @@ gulp.task('styles', function() {
 })
 
 gulp.task('coffee', function() {
-    gulp.src('./src/coffee/*.coffee')
+    gulp.src('./src/coffee/**')
         .pipe(coffee())
         .pipe(gulp.dest('dist/js/'))
         .pipe(connect.reload())
@@ -34,6 +35,9 @@ gulp.task('third-party', function() {
     gulp.src('./src/third-party/angular-route/angular-route.min.js')
         .pipe(gulp.dest('dist/third-party/angular-route/'))
 
+    gulp.src('./src/third-party/angular-resource/angular-resource.min.js')
+        .pipe(gulp.dest('dist/third-party/angular-resource/'))
+
     gulp.src('./src/third-party/bootstrap/dist/**')
         .pipe(gulp.dest('dist/third-party/bootstrap/'))
 
@@ -42,18 +46,19 @@ gulp.task('third-party', function() {
 })
 
 connectOptions = {
-    root: 'dist',
+    host: '127.0.0.1',
     livereload: true,
-    middleware: function(connect, opt) {
-        return [historyApiFallback]
-    }
+    fallback: 'html/index.html',
+    proxies: [
+        { source: '/api/v1/', target: 'http://127.0.0.1:5000/api/v1/'}
+    ]
 }
-gulp.task('connect', function() {
-    connect.server(connectOptions)
+gulp.task('webserver', function() {
+    gulp.src('dist')
+        .pipe(webserver(connectOptions))
 })
 
 gulp.task('watch', function(){
     gulp.watch(['./src/**'], ['html', 'styles', 'coffee', 'third-party'])
-    connect.server(connectOptions)
 })
 
