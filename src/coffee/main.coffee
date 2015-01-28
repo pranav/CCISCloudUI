@@ -1,0 +1,1 @@
+CCISCloudUIApp = angular.module('CCISCloudUIApp', [])
