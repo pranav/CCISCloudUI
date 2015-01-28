@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">Instance Information</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-2">
+            <div class="form-group">
+                <label for="hostname">Hostname</label>
+                <input type="text" class="form-control" id="hostname" ng-model="hostname"/>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="instance_type">Instance Type</label>
+                <select class="form-control" name="instance_type" id="instance_type" ng-model="instance_type">
+                    <option value="t2.micro" selected="selected">t2.micro</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" ng-model="description" name="description" id="description" rows="3" placeholder="Something descriptive to remember this instance by."></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">What should this instance run?</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2" ng-repeat="pc in puppetClasses">
+            <button ng-click="set_puppet_class(pc.puppetClass)" ng-class="{'active':isActive(pc.puppetClass)}" class="btn-default btn btn-lg btn-block">{{ pc.title }}</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 text-center condense-btn" ng-click="condense_instance()"><button class="btn-lg btn btn-primary">LAUNCH</button></div>
+    </div>
+</div>

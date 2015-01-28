@@ -4,6 +4,7 @@ CCISCloudServices.factory 'Instance', ['$resource', ($resource) ->
   $resource '/api/v1/instance/:instanceId', { instanceId: "@instanceId" }, {
     query: { method: 'GET', params: { instanceId: 'all' }, isArray: true },
     action: { method: 'PUT' },
-    delete: { method: 'DELETE' }
+    delete: { method: 'DELETE' },
+    condense: { method: 'POST' }
   }
 ]

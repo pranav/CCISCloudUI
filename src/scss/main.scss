@@ -1,5 +1,6 @@
-$background: #fafafa;
-
+button {
+  outline: none !important;
+}
 .center-col {
   margin: 0 auto;
   float: none;
@@ -7,4 +8,8 @@ $background: #fafafa;
 
 .instance-actions-buttons {
   margin-bottom: 1.2em;
+}
+
+.condense-btn {
+  margin-top:5em;
 }

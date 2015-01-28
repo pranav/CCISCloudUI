@@ -34,3 +34,31 @@ CCISCloudUIControllers.controller 'InstanceCtrl', ['$scope', '$routeParams','Ins
   $scope.delete_instance = ->
     Instance.delete { instanceId: $scope.instance.instance_id }
 ]
+
+CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', 'Instance', ($scope, Instance) ->
+  $scope.puppetClass = "ccis::role_base"
+  $scope.puppetClasses = [
+    { puppetClass: 'ccis::role_base', title: 'Nothing' },
+    { puppetClass: 'ccis::role_mysql', title: 'MySQL' },
+    { puppetClass: 'ccis::role_nginx', title: 'Nginx' },
+    { puppetClass: 'ccis::role_app_server', title: 'App Server' },
+    { puppetClass: 'ccis::hadoop::role_tasktracker', title: 'Tasktracker' },
+    { puppetClass: 'ccis::role_bitcoin_miner', title: 'Bitcoin Miner' }
+  ]
+
+  $scope.isActive = (pc) ->
+    $scope.puppetClass == pc
+
+  $scope.set_puppet_class = (pc) ->
+    $scope.puppetClass = pc
+
+
+  $scope.condense_instance = ->
+    Instance.condense {
+      instanceId: 'condense',
+      hostname: $scope.hostname,
+      instance_type: $scope.instance_type,
+      description: $scope.description,
+      puppetClass: $scope.puppetClass
+    }
+]
