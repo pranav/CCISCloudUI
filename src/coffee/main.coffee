@@ -26,8 +26,11 @@ CCISCloudUIControllers.controller 'InstancesCtrl', ['$scope', 'Instance', ($scop
 ]
 
 CCISCloudUIControllers.controller 'InstanceCtrl', ['$scope', '$routeParams','Instance', ($scope, $routeParams, Instance) ->
-  $scope.instance = Instance.get({instanceId: $routeParams.instanceId})
+  $scope.instance = Instance.get { instanceId: $routeParams.instanceId }
 
   $scope.instance_action = (action) ->
-    Instance.action({instanceId: $scope.instance.instance_id, action: action})
+    Instance.action { instanceId: $scope.instance.instance_id, action: action }
+
+  $scope.delete_instance = ->
+    Instance.delete { instanceId: $scope.instance.instance_id }
 ]
