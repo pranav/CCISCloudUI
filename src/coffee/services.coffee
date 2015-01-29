@@ -8,3 +8,9 @@ CCISCloudServices.factory 'Instance', ['$resource', ($resource) ->
     condense: { method: 'POST' }
   }
 ]
+
+CCISCloudServices.factory 'UserCost', ['$resource', ($resource) ->
+  $resource '/api/v1/user/:user/cost', { user: '@user' }, {
+    get_cost: { method: 'GET' }
+  }
+]

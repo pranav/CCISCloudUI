@@ -18,7 +18,9 @@ CCISCloudUIApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $
 
 CCISCloudUIControllers = angular.module('CCISCloudUIControllers', [])
 
-CCISCloudUIControllers.controller 'BaseCtrl', ['$scope', ($scope) ->
+CCISCloudUIControllers.controller 'BaseCtrl', ['$scope', 'UserCost', ($scope, UserCost) ->
+  $scope.user_cost = UserCost.get_cost({user: 'hyfi'})
+  console.log 'totally base'
 ]
 
 CCISCloudUIControllers.controller 'InstancesCtrl', ['$scope', 'Instance', ($scope, Instance) ->
