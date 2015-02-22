@@ -13,6 +13,7 @@
             <tr>
                 <th>Hostname</th>
                 <th>State</th>
+                <th>Cost</th>
                 <th>Instance Type</th>
                 <th>Launch Time</th>
             </tr>
@@ -21,6 +22,7 @@
             <tr ng-repeat="instance in instances">
                 <td><a href="/instance/{{ instance.instance_id }}">{{ instance.tags.hostname }}</a></td>
                 <td>{{ instance.state }}</td>
+                <td>${{ instance.cost }}</td>
                 <td>{{ instance.instance_type }}</td>
                 <td>{{ instance.launch_time  }}</td>
             </tr>

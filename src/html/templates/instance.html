@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="page-header">
-                <h1>{{ instance.tags.hostname }} <small>{{ instance.tags.description || "Enter a memorable description of this instance"}}</small></h1>
+                <h1 class="text-center">{{ instance.tags.hostname }}<br/><small>{{ instance.tags.description || "Enter a memorable description of this instance"}}</small></h1>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
                     </dl>
                     <dl class="dl-horizontal">
                         <dt>Cost (estimated):</dt>
-                        <dd>{{ instance.cost }}</dd>
+                        <dd>${{ instance.cost }}</dd>
                     </dl>
                     <dl class="dl-horizontal">
                         <dt>Amazon DNS Name:</dt>
