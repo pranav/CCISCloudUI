@@ -20,7 +20,6 @@ CCISCloudUIControllers = angular.module('CCISCloudUIControllers', [])
 
 CCISCloudUIControllers.controller 'BaseCtrl', ['$scope', 'UserCost', ($scope, UserCost) ->
   $scope.user_cost = UserCost.get_cost({user: 'hyfi'})
-  console.log 'totally base'
 ]
 
 CCISCloudUIControllers.controller 'InstancesCtrl', ['$scope', 'Instance', ($scope, Instance) ->
@@ -28,13 +27,25 @@ CCISCloudUIControllers.controller 'InstancesCtrl', ['$scope', 'Instance', ($scop
 ]
 
 CCISCloudUIControllers.controller 'InstanceCtrl', ['$scope', '$routeParams','Instance', ($scope, $routeParams, Instance) ->
+  $scope.buttonStatus = [false, false, false, false]
+
+
   $scope.instance = Instance.get { instanceId: $routeParams.instanceId }
 
-  $scope.instance_action = (action) ->
-    Instance.action { instanceId: $scope.instance.instance_id, action: action }
+  $scope.instance_action = (action, buttonId) ->
+    $scope.buttonStatus[buttonId] = true
+    Instance.action { instanceId: $scope.instance.instance_id, action: action }, (success) ->
+      if success.status == "success"
+        alert("Successfully #{action}ed the instance")
+        $scope.buttonStatus[buttonId] = false
+    , (failure) ->
+      alert("ERROR: #{failure}")
+      $scope.buttonStatus[buttonId] = false
 
   $scope.delete_instance = ->
     Instance.delete { instanceId: $scope.instance.instance_id }
+
+
 ]
 
 CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', 'Instance', ($scope, Instance) ->

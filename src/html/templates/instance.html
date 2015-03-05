@@ -8,10 +8,10 @@
     </div>
     <div class="row">
         <div class="col-md-8 center-col text-center instance-actions-buttons">
-            <button class="btn btn-success" ng-click="instance_action('start')">Start</button>
-            <button class="btn btn-danger" ng-click="instance_action('stop')">Stop</button>
-            <button class="btn btn-danger" ng-click="delete_instance()">Delete</button>
-            <button class="btn btn-warning" ng-click="instance_action('reboot')">Reboot</button>
+            <button ng-disabled="buttonStatus[0]" class="btn btn-success" ng-click="instance_action('start')">Start</button>
+            <button ng-disabled="buttonStatus[1]" class="btn btn-danger" ng-click="instance_action('stop')">Stop</button>
+            <button ng-disabled="buttonStatus[2]" class="btn btn-danger" ng-click="delete_instance()">Delete</button>
+            <button ng-disabled="buttonStatus[3]" class="btn btn-warning" ng-click="instance_action('reboot')">Reboot</button>
             <button class="btn btn-primary">Clone</button>
         </div>
     </div>
@@ -29,7 +29,7 @@
                     </dl>
                     <dl class="dl-horizontal">
                         <dt>Cost (estimated):</dt>
-                        <dd>${{ instance.cost }}</dd>
+                        <dd>${{ instance.cost | limitTo:4}}</dd>
                     </dl>
                     <dl class="dl-horizontal">
                         <dt>Amazon DNS Name:</dt>
