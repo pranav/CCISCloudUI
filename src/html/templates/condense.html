@@ -1,42 +1,45 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <h3 class="text-center">Instance Information</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3 col-sm-offset-2">
-            <div class="form-group">
-                <label for="hostname">Hostname</label>
-                <input type="text" class="form-control" id="hostname" ng-model="hostname"/>
+<div class="condense-page">
+    <div class="container-fluid">
+        <div class="row">
+            <h1 class="text-center">New instance</h1>
+            <div class="col-md-8 col-md-offset-2">
+                <h2>Hostname <small>Something memorable I hope.</small></h2>
+                <input type="text" class="form-control" ng-model="hostname"/>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label for="instance_type">Instance Type</label>
-                <select class="form-control" name="instance_type" id="instance_type" ng-model="instance_type">
-                    <option value="t2.micro" selected="selected">t2.micro</option>
-                </select>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h2>Description <small>Something to remember this instance.</small></h2>
+                <input type="text" class="form-control" ng-model="description"/>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" ng-model="description" name="description" id="description" rows="3" placeholder="Something descriptive to remember this instance by."></textarea>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-2">
+                <div class="instance-type" ng-class="{'instance-type-active': isSelectedInstanceType('t2.micro')}" ng-click="setSelectedInstanceType('t2.micro')">
+                    <h3 class="text-center">t2.micro</h3>
+                    <ul>
+                        <li>1GB RAM</li>
+                        <li>1 Core</li>
+                        <li>$0.013/hr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="instance-type" ng-class="{'instance-type-active': isSelectedInstanceType('t2.small')}" ng-click="setSelectedInstanceType('t2.small')">
+                    <h3 class="text-center">t2.small</h3>
+                    <ul>
+                        <li>2GB RAM</li>
+                        <li>1 Core</li>
+                        <li>$0.026/hr</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <h3 class="text-center">What should this instance run?</h3>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5">
+                <button class="btn btn-lg btn-primary" ng-click="condense_instance()">Create Instance</button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2" ng-repeat="pc in puppetClasses">
-            <button ng-click="set_puppet_class(pc.puppetClass)" ng-class="{'active':isActive(pc.puppetClass)}" class="btn-default btn btn-lg btn-block">{{ pc.title }}</button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 text-center condense-btn" ng-click="condense_instance()"><button class="btn-lg btn btn-primary">LAUNCH</button></div>
     </div>
 </div>
+

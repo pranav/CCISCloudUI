@@ -11,5 +11,62 @@ button {
 }
 
 .condense-btn {
-  margin-top:5em;
+  margin-top: 5em;
+}
+
+.condense-page {
+  $active-selection: #398BCE;
+
+  h1, h2, h3, small {
+    font-weight: 300;
+  }
+
+  input[type='text'] {
+    border-radius: 0;
+    border: 2px #ddd solid;
+    box-shadow: none;
+    font-size: 1.5em;
+    padding: 1.2em;
+    font-weight: 300;
+
+    &:focus {
+      border: 2px $active-selection solid;
+    }
+  }
+
+  .row {
+    margin: 50px auto;
+  }
+
+  .instance-type {
+    cursor: pointer;
+    border: 2px #dddddd solid;
+    background: #eee;
+
+    ul {
+      background: white;
+      margin-bottom: 0;
+      padding: 10px 0;
+
+      li {
+        list-style-type: none;
+        text-align: center;
+      }
+    }
+  }
+
+  .instance-type-active {
+    border: 2px $active-selection solid;
+    background: $active-selection;
+
+    h3 {
+      color: white;
+    }
+  }
+
+  button {
+    border-radius: 0px;
+    font-weight: 300;
+  }
+
 }

@@ -48,7 +48,7 @@ CCISCloudUIControllers.controller 'InstanceCtrl', ['$scope', '$routeParams','Ins
 
 ]
 
-CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', 'Instance', ($scope, Instance) ->
+CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', '$location', 'Instance', ($scope, $location, Instance) ->
   $scope.puppetClass = "ccis::role_base"
   $scope.puppetClasses = [
     { puppetClass: 'ccis::role_base', title: 'Nothing' },
@@ -58,6 +58,14 @@ CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', 'Instance', ($scope
     { puppetClass: 'ccis::hadoop::role_tasktracker', title: 'Tasktracker' },
     { puppetClass: 'ccis::role_bitcoin_miner', title: 'Bitcoin Miner' }
   ]
+
+  $scope.selectedInstanceType = 't2.micro'
+
+  $scope.setSelectedInstanceType = (instanceType) ->
+    $scope.selectedInstanceType = instanceType
+
+  $scope.isSelectedInstanceType = (instanceType) ->
+    instanceType == $scope.selectedInstanceType
 
   $scope.isActive = (pc) ->
     $scope.puppetClass == pc
@@ -70,8 +78,11 @@ CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', 'Instance', ($scope
     Instance.condense {
       instanceId: 'condense',
       hostname: $scope.hostname,
-      instance_type: $scope.instance_type,
+      instance_type: $scope.selectedInstanceType,
       description: $scope.description,
       puppetClass: $scope.puppetClass
     }
+    $location.path("/instance/#{$scope.hostname}")
+
+
 ]
