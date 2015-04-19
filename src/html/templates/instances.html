@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well">
-                <h4 class="text-center">You've spent ${{ user_cost.total_cost | number : 2}} this month.</h4>
+                <h4 ng-if="user_cost" class="text-center">You've spent ${{ user_cost.total_cost | number : 2}} this month.</h4>
+                <h4 ng-if="user_cost == undefined" class="text-center">Loading...</h4>
             </div>
         </div>
     </div>

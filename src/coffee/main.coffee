@@ -18,8 +18,10 @@ CCISCloudUIApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $
 
 CCISCloudUIControllers = angular.module('CCISCloudUIControllers', [])
 
-CCISCloudUIControllers.controller 'BaseCtrl', ['$scope', 'UserCost', ($scope, UserCost) ->
-  $scope.user_cost = UserCost.get_cost({user: 'hyfi'})
+CCISCloudUIControllers.controller 'BaseCtrl', ['$scope', 'UserCost', 'WhoAmI', ($scope, UserCost, WhoAmI) ->
+  WhoAmI.getWhoIAm (whoiam) ->
+    $scope.username = whoiam.username
+    $scope.user_cost = UserCost.get_cost({user: $scope.username})
 ]
 
 CCISCloudUIControllers.controller 'InstancesCtrl', ['$scope', 'Instance', ($scope, Instance) ->
@@ -28,7 +30,6 @@ CCISCloudUIControllers.controller 'InstancesCtrl', ['$scope', 'Instance', ($scop
 
 CCISCloudUIControllers.controller 'InstanceCtrl', ['$scope', '$routeParams','Instance', ($scope, $routeParams, Instance) ->
   $scope.buttonStatus = [false, false, false, false]
-
 
   $scope.instance = Instance.get { instanceId: $routeParams.instanceId }
 
@@ -44,22 +45,15 @@ CCISCloudUIControllers.controller 'InstanceCtrl', ['$scope', '$routeParams','Ins
 
   $scope.delete_instance = ->
     Instance.delete { instanceId: $scope.instance.instance_id }
+    window.location.href = "/"
 
 
 ]
 
 CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', '$location', 'Instance', ($scope, $location, Instance) ->
-  $scope.puppetClass = "ccis::role_base"
-  $scope.puppetClasses = [
-    { puppetClass: 'ccis::role_base', title: 'Nothing' },
-    { puppetClass: 'ccis::role_mysql', title: 'MySQL' },
-    { puppetClass: 'ccis::role_nginx', title: 'Nginx' },
-    { puppetClass: 'ccis::role_app_server', title: 'App Server' },
-    { puppetClass: 'ccis::hadoop::role_tasktracker', title: 'Tasktracker' },
-    { puppetClass: 'ccis::role_bitcoin_miner', title: 'Bitcoin Miner' }
-  ]
 
   $scope.selectedInstanceType = 't2.micro'
+  $scope.selectedAnsibleTask = 'base'
 
   $scope.setSelectedInstanceType = (instanceType) ->
     $scope.selectedInstanceType = instanceType
@@ -67,22 +61,21 @@ CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', '$location', 'Insta
   $scope.isSelectedInstanceType = (instanceType) ->
     instanceType == $scope.selectedInstanceType
 
-  $scope.isActive = (pc) ->
-    $scope.puppetClass == pc
+  $scope.setAnsibleTask = (ansibleTask) ->
+    $scope.selectedAnsibleTask = ansibleTask
 
-  $scope.set_puppet_class = (pc) ->
-    $scope.puppetClass = pc
-
+  $scope.isAnsibleTask = (ansibleTask) ->
+    ansibleTask == $scope.selectedAnsibleTask
 
   $scope.condense_instance = ->
-    Instance.condense {
+    Instance.condense({
       instanceId: 'condense',
       hostname: $scope.hostname,
       instance_type: $scope.selectedInstanceType,
       description: $scope.description,
-      puppetClass: $scope.puppetClass
-    }
-    $location.path("/instance/#{$scope.hostname}")
+      ansibleTask: $scope.selectedAnsibleTask
+    }).$promise.then (result) ->
+      $location.path "/instance/#{result.instance_id}"
 
 
 ]

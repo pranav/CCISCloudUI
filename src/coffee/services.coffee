@@ -14,3 +14,9 @@ CCISCloudServices.factory 'UserCost', ['$resource', ($resource) ->
     get_cost: { method: 'GET' }
   }
 ]
+
+CCISCloudServices.factory 'WhoAmI', ['$resource', ($resource) ->
+  $resource '/api/v1/user/whoami', {}, {
+    getWhoIAm: { method: 'GET' }
+  }
+]

@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-offset-2 col-md-2">
+            <div class="col-sm-offset-4 col-sm-2">
                 <div class="instance-type" ng-class="{'instance-type-active': isSelectedInstanceType('t2.micro')}" ng-click="setSelectedInstanceType('t2.micro')">
                     <h3 class="text-center">t2.micro</h3>
                     <ul>
@@ -24,7 +24,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-sm-2">
                 <div class="instance-type" ng-class="{'instance-type-active': isSelectedInstanceType('t2.small')}" ng-click="setSelectedInstanceType('t2.small')">
                     <h3 class="text-center">t2.small</h3>
                     <ul>
@@ -36,7 +36,27 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2 col-md-offset-5">
+            <div class="col-sm-offset-4 col-sm-2">
+                <div class="instance-type" ng-class="{'instance-type-active': isAnsibleTask('base')}" ng-click="setAnsibleTask('base')">
+                    <h3 class="text-center">Base</h3>
+                    <ul>
+                        <li>Amazon Linux 2015.03</li>
+                        <li>LDAP Auth</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="instance-type" ng-class="{'instance-type-active': isAnsibleTask('accountportal')}" ng-click="setAnsibleTask('accountportal')">
+                    <h3 class="text-center">Account Portal</h3>
+                    <ul>
+                        <li>Base</li>
+                        <li>Account Portal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5 center-block">
                 <button class="btn btn-lg btn-primary" ng-click="condense_instance()">Create Instance</button>
             </div>
         </div>

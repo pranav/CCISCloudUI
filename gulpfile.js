@@ -47,7 +47,7 @@ gulp.task('third-party', function() {
 
 connectOptions = {
     host: '127.0.0.1',
-    livereload: true,
+    livereload: false,
     fallback: 'html/index.html',
     proxies: [
         { source: '/api/v1/', target: 'http://127.0.0.1:5000/api/v1/'}
