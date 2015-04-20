@@ -54,6 +54,7 @@ CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', '$location', 'Insta
 
   $scope.selectedInstanceType = 't2.micro'
   $scope.selectedAnsibleTask = 'base'
+  $scope.disableCondenseButton = false
 
   $scope.setSelectedInstanceType = (instanceType) ->
     $scope.selectedInstanceType = instanceType
@@ -68,6 +69,7 @@ CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', '$location', 'Insta
     ansibleTask == $scope.selectedAnsibleTask
 
   $scope.condense_instance = ->
+    $scope.disableCondenseButton = true
     Instance.condense({
       instanceId: 'condense',
       hostname: $scope.hostname,
@@ -76,6 +78,7 @@ CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', '$location', 'Insta
       ansibleTask: $scope.selectedAnsibleTask
     }).$promise.then (result) ->
       $location.path "/instance/#{result.instance_id}"
+      $scope.disableCondenseButton = false
 
 
 ]

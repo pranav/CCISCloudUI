@@ -2,7 +2,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="page-header">
-                <h1 class="text-center">{{ instance.tags.hostname || 'Loading...' }}<br/><small>{{ instance.tags.description || "Enter a memorable description of this instance"}}</small></h1>
+                <h1 class="text-center">{{ instance.tags.hostname + '.' + username + ".ccis.io" || 'Loading...' }}<br/>
+                    <small>{{ instance.tags.description || "Enter a memorable description of this instance"}}</small>
+                </h1>
             </div>
         </div>
     </div>
