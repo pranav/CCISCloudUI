@@ -19,9 +19,12 @@ CCISCloudUIApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $
 CCISCloudUIControllers = angular.module('CCISCloudUIControllers', [])
 
 CCISCloudUIControllers.controller 'BaseCtrl', ['$scope', 'UserCost', 'WhoAmI', ($scope, UserCost, WhoAmI) ->
+  $scope.DEFAULT_CREDITS = 20
+
   WhoAmI.getWhoIAm (whoiam) ->
     $scope.username = whoiam.username
     $scope.user_cost = UserCost.get_cost({user: $scope.username})
+
 ]
 
 CCISCloudUIControllers.controller 'InstancesCtrl', ['$scope', 'Instance', ($scope, Instance) ->
@@ -55,6 +58,7 @@ CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', '$location', 'Insta
   $scope.selectedInstanceType = 't2.micro'
   $scope.selectedAnsibleTask = 'base'
   $scope.disableCondenseButton = false
+  $scope.condenseButtonText = "Create Instance"
 
   $scope.setSelectedInstanceType = (instanceType) ->
     $scope.selectedInstanceType = instanceType
@@ -70,15 +74,21 @@ CCISCloudUIControllers.controller 'CondenseCtrl', ['$scope', '$location', 'Insta
 
   $scope.condense_instance = ->
     $scope.disableCondenseButton = true
-    Instance.condense({
+    $scope.condenseButtonText = "Creating your VM..."
+    Instance.condense {
       instanceId: 'condense',
       hostname: $scope.hostname,
       instance_type: $scope.selectedInstanceType,
       description: $scope.description,
       ansibleTask: $scope.selectedAnsibleTask
-    }).$promise.then (result) ->
+    }, (result) ->
       $location.path "/instance/#{result.instance_id}"
       $scope.disableCondenseButton = false
+      $scope.condenseButtonText = "Create Instance"
+    , (onerror) ->
+      alert("Something about this instance is wrong, check that you filled in all the fields.")
+      $scope.disableCondenseButton = false
+      $scope.condenseButtonText = "Create Instance"
 
 
 ]

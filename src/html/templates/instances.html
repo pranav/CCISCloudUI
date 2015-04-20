@@ -2,8 +2,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well">
-                <h4 ng-if="user_cost" class="text-center">You've spent ${{ user_cost.total_cost | number : 2}} this month.</h4>
-                <h4 ng-if="user_cost == undefined" class="text-center">Loading...</h4>
+                <h4 ng-if="user_cost.total_cost"
+                    class="text-center">
+                    You've spent ${{ user_cost.total_cost | number : 2}} this month as of yesterday.
+                    You have ${{ DEFAULT_CREDITS - user_cost.total_cost | number:2 }} in credit left.
+                </h4>
+                <h4 ng-if="!user_cost" class="text-center">Loading...</h4>
             </div>
         </div>
     </div>
@@ -21,7 +25,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="instance in instances">
-                <td><a href="/instance/{{ instance.instance_id }}">{{ instance.tags.hostname }}</a></td>
+                <td><a href="/instance/{{ instance.instance_id }}">{{ instance.tags.Name }}</a></td>
                 <td>{{ instance.state }}</td>
                 <td>${{ instance.cost | limitTo:4 }}</td>
                 <td>{{ instance.instance_type }}</td>
